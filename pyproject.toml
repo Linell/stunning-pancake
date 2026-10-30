@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dogbreeds"
+version = "0.1.0"
+description = "A small CLI that lists dog breeds."
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+dogbreeds = "dogbreeds.cli:main"
+
+[tool.setuptools]
+packages = ["dogbreeds"]
+
+[tool.setuptools.package-data]
+dogbreeds = ["breeds.csv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
