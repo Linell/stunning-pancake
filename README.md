@@ -42,3 +42,17 @@ python fib.py --nth 100   # 354224848179261915075
 ```
 
 Exit codes: `0` success, `2` usage error (only plain ASCII digits are accepted).
+
+## fib.zig
+
+The same idea in Zig: memoized recursion, standard library only, written for Zig 0.14 and 0.15.
+Values are `u128`, so the largest index is 186 (`F(187)` doesn't fit in 128 bits and is
+reported as an error instead of wrapping around).
+
+```sh
+zig run fib.zig -- 10          # F(0) .. F(9), one per line
+zig run fib.zig -- --nth 100   # 354224848179261915075
+zig test fib.zig               # unit tests (pytest also runs these when zig is installed)
+```
+
+Exit codes: `0` success, `1` couldn't write output, `2` usage error.
