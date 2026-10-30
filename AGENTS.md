@@ -11,3 +11,4 @@ Senior backend engineer. Has written Python for 15 years.
 ## Memory
 <!-- Add short dated notes here about things worth remembering between sessions. -->
 - 2026-10-30: No Zig in sandbox; downloaded 0.14.1 to /tmp/zig-x86_64-linux-0.14.1 for testing. fib.zig targets 0.14 (`std.io.getStdOut` is gone in 0.15).
+- 2026-10-30: /tmp is wiped between sessions; re-download Zig: `curl -sSfLO https://ziglang.org/download/0.14.1/zig-x86_64-linux-0.14.1.tar.xz` into /tmp and extract.
