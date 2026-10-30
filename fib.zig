@@ -94,7 +94,7 @@ pub const out_buf_len = 8192;
 pub const err_buf_len = 1024;
 
 fn usageError(err_buf: []u8, comptime fmt: []const u8, args: anytype) Result {
-    const msg = std.fmt.bufPrint(err_buf, "fib: " ++ fmt ++ "\n" ++ usage, args) catch
+    const msg: []const u8 = std.fmt.bufPrint(err_buf, "fib: " ++ fmt ++ "\n" ++ usage, args) catch
         // The offending argument was too long to echo back.
         "fib: invalid argument\n" ++ usage;
     return .{ .code = 2, .out = "", .err = msg };
