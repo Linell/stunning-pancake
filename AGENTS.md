@@ -11,3 +11,4 @@ Learning to program; about three months in. Knows basic Python syntax.
 ## Memory
 <!-- Add short dated notes here about things worth remembering between sessions. -->
 - 2025-01: Built `dog_breeds.py` (argparse CLI, breeds in a hardcoded list, no internet needed) + README.md. Ben's Python is `python` (3.x), no third-party packages used so far.
+- 2025-01: Added `fibonacci.py` (simple recursive fib, argparse with optional `how_many`, default 10). README now has a section per script, separated by `---`. Given a choice of language, picked Python since it's what Ben knows.
