@@ -29,3 +29,16 @@ Groups in the built-in data follow the AKC's seven groups. Origins are approxima
 ```sh
 pip install pytest && pytest
 ```
+
+## fib.py
+
+A standalone script, separate from the `dogbreeds` package, that computes Fibonacci numbers with
+memoized recursion (`F(0)=0`, `F(1)=1`). It handles large `n` without hitting the recursion
+limit or Python's 4300-digit int-to-str limit.
+
+```sh
+python fib.py 10          # F(0) .. F(9), one per line
+python fib.py --nth 100   # 354224848179261915075
+```
+
+Exit codes: `0` success, `2` usage error (only plain ASCII digits are accepted).
