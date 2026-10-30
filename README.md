@@ -174,3 +174,100 @@ recursion clearly, not to be fast.
   work again.
 - Write a version that uses a `for` loop instead of recursion and compare
   how fast they are.
+
+---
+
+# Fibonacci Sequence in Zig (with recursion)
+
+`fibonacci.zig` does the same job as `fibonacci.py`, but it's written in
+[Zig](https://ziglang.org), a different programming language.
+
+## How to run it
+
+You need Zig installed. It was written and tested with **Zig 0.17.0**.
+Zig is still young and changes a lot between versions, so an older or newer
+Zig might give errors (especially in the printing code). Check your version
+with `zig version`.
+
+Open a terminal in this folder and type:
+
+```
+zig run fibonacci.zig            # print the first 10 Fibonacci numbers
+zig run fibonacci.zig -- 15      # print the first 15
+zig test fibonacci.zig           # run the built-in tests
+```
+
+The `--` matters: it tells `zig run` "everything after this goes to my
+program, not to the zig tool".
+
+Example output:
+
+```
+$ zig run fibonacci.zig -- 8
+0
+1
+1
+2
+3
+5
+8
+13
+```
+
+## What I did and why (beginner notes)
+
+**Same plan as the Python version.** I kept the same structure on purpose
+so you can put the two files side by side and compare them. There's a
+`fibonacci` function that does the maths and a `main` function that reads
+what you typed and prints the numbers. The recursion is the same idea too:
+two base cases (`0` and `1`), then `fibonacci(n - 1) + fibonacci(n - 2)`.
+The beginner notes for the Python version above explain recursion in more
+detail.
+
+**Main differences from Python you'll notice:**
+
+- **Types must be written out.** `fn fibonacci(n: u64) u64` means "takes a
+  `u64` and returns a `u64`". `u64` is a whole number that can't be negative
+  and is stored in 64 bits. Python works types out for you; Zig wants you to
+  say them.
+- **`const` and `var`.** `const` is a value that never changes, and `var`
+  is one that can. Zig complains if you use `var` for something you never
+  change.
+- **Errors are values.** `!void` on `main` means "may fail with an error".
+  `try` means "if this fails, stop and pass the error on". `catch` means
+  "if this fails, do this instead". I used `catch` to print a friendly
+  message when you type something like `abc`.
+- **No argparse.** Zig's standard library has no ready-made argument
+  parser like Python's `argparse`, so the code reads the list of arguments
+  by hand. `args[0]` is the program name and `args[1]` is your number.
+- **Printing takes some setup.** Zig makes you set up a "writer" with a
+  buffer and call `flush()` at the end to send out the output. It's more
+  work than Python's `print`, but Zig makes you ask for things like this
+  so nothing happens behind your back.
+- **A `while` loop instead of `for ... in range(...)`.**
+  `while (position < how_many) : (position += 1)` counts up from 0. The
+  part after the `:` runs at the end of every lap.
+- **Built-in tests.** The `test` block at the bottom checks a few known
+  answers. `zig test fibonacci.zig` runs it.
+
+**Why is there a limit of 94?** A `u64` can't hold numbers bigger than
+about 18 quintillion. `fibonacci(93)` is the biggest Fibonacci number that
+fits. Python numbers can grow as big as they like, but Zig numbers have a
+fixed size, so the program refuses anything over 94 instead of giving a
+wrong answer or crashing. (The slow recursion means you'd never wait long
+enough to get that far anyway!)
+
+**Is it faster than Python?** Yes, by a lot. Zig is turned into machine
+code before it runs, but Python is read and run line by line. On my test,
+printing 35 numbers took about 0.15 seconds (Python: nearly 3 seconds) and
+40 numbers took about 1.7 seconds. It's still the same slow method, though.
+Every extra number makes it about 1.6 times slower, so being faster only
+lets you go a bit further before it gets slow.
+
+## Ideas to try next
+
+- Change `u64` to `u128` and see how high `max_how_many` can go
+  (hint: `fibonacci(186)` is the largest that fits).
+- Add another `test` block that checks `fibonacci(20)` is `6765`.
+- Try the same ideas as for the Python version: count the calls, or write a
+  loop version and compare the speed.
